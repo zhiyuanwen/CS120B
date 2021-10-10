@@ -1,4 +1,4 @@
-/*	Your Name & E-mail: Zhiyuan Wen (zwen012@ucr.edu)
+/*	Author: Zhiyuan Wen
  *	Lab Section: 021
  *	Assignment: Lab #2  Exercise #1
  *	Exercise Description:
