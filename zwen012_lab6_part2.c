@@ -6,7 +6,7 @@
  *	I acknowledge all content contained herein, excluding template 
  * 	or example code, is my own original work.
  *
- *	Demo Link: 
+ *	Demo Link: https://drive.google.com/drive/u/2/folders/1nD1ARqQwL7n-os4vgTLC6hHqegSRwPsE
  */
 
 #include <avr/io.h>
@@ -58,7 +58,7 @@ void light_Show() {
             li_State = li_s0;
             break;
         case li_s0:
-            if(PORTA & 0x01) {
+            if(PINA & 0x01) {
                 li_State = li_Hold;
                 nextPart = 1;
             }
@@ -67,7 +67,7 @@ void light_Show() {
             }
             break;
         case li_s1Up:
-            if(PORTA & 0x01) {
+            if(PINA & 0x01) {
                 li_State = li_Hold;
                 nextPart = 2;
             }
@@ -76,7 +76,7 @@ void light_Show() {
             }
             break;
         case li_s2:
-            if(PORTA & 0x01) {
+            if(PINA & 0x01) {
                 li_State = li_Hold;
                 nextPart = 3;
             }
@@ -85,7 +85,7 @@ void light_Show() {
             }
             break;
         case li_s1Down:
-            if(PORTA & 0x01) {
+            if(PINA & 0x01) {
                 li_State = li_Hold;
             }
             else {
@@ -93,7 +93,7 @@ void light_Show() {
             }
             break;
         case li_Hold:
-            if(!(PORTA & 0x01)) {
+            if(!(PINA & 0x01)) {
                 if(nextPart == 1) {
                     li_State = li_s1Up;
                 }

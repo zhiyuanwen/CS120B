@@ -133,7 +133,8 @@ void increment_Button() {
             PORTC = tmpC;
             break;
         case inc_Reset:
-            PORTC = 0;
+            tmpC = 0;
+            PORTC = tmpC;
             break;
         default:
             PORTC = 0x07;

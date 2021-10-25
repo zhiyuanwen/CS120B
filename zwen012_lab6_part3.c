@@ -6,7 +6,7 @@
  *	I acknowledge all content contained herein, excluding template 
  * 	or example code, is my own original work.
  *
- *	Demo Link: 
+ *	Demo Link: https://drive.google.com/drive/u/2/folders/1nD1ARqQwL7n-os4vgTLC6hHqegSRwPsE
  */
 
 #include <avr/io.h>
@@ -59,20 +59,20 @@ void increment_Button() {
             inc_State = inc_s0; //Go to state0
             break;
         case inc_s0:
-            if((~PINA & 0x01) && (~PINA & 0x02)) { //Reset the count
+            if((PINA & 0x01) && (PINA & 0x02)) { //Reset the count
                 inc_State = inc_Reset;
             }
-            else if(~PINA & 0x01) { //Go up 1
+            else if(PINA & 0x01) { //Go up 1
                 inc_State = inc_Up;
                 count = 10;
             }
-            else if(~PINA & 0x02) { //Go down 1
+            else if(PINA & 0x02) { //Go down 1
                 inc_State = inc_Down;
                 count = 10;
             }
             break;
         case inc_Up:
-            if((~PINA & 0x01) && (~PINA & 0x02)) { //Reset if A1 pushed
+            if((PINA & 0x01) && (PINA & 0x02)) { //Reset if A1 pushed
                 inc_State = inc_Reset;
             }
             else if(!(~PINA & 0x01)) { //Continue until release
@@ -84,19 +84,19 @@ void increment_Button() {
             }
             break;
         case inc_Down:
-            if((~PINA & 0x01) && (~PINA & 0x02)) { //Reset if A0 pushed
+            if((PINA & 0x01) && (PINA & 0x02)) { //Reset if A0 pushed
                 inc_State = inc_Reset;
             }
-            else if(~PINA & 0x01) { //Straight to up 1
+            else if(PINA & 0x01) { //Straight to up 1
                 inc_State = inc_Up;
                 count = 10;
             }
-            else if(!(~PINA & 0x02)) { // Continue until release
+            else if(!(PINA & 0x02)) { // Continue until release
                 inc_State = inc_s0;
             }
             break;
         case inc_Reset:
-            if(!(~PINA & 0x01) && !(~PINA & 0x02)) {
+            if(!(PINA & 0x01) && !(PINA & 0x02)) {
                 inc_State = inc_s0; //Go back to start
             }
             break;
@@ -107,7 +107,8 @@ void increment_Button() {
     
     switch(inc_State) {
         case inc_SMStart:
-            PORTB = 0x07;
+            tmpB = 0x07;
+            PORTB = tmpB;
             break;
         case inc_s0:
             break;
@@ -132,7 +133,8 @@ void increment_Button() {
             PORTB = tmpB;
             break;
         case inc_Reset:
-            PORTB = 0;
+            tmpB = 0;
+            PORTB = tmpB;
             break;
         default:
             PORTB = 0x07;
