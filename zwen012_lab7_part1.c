@@ -60,44 +60,44 @@ void increment_Button() {
             inc_State = inc_s0; //Go to state0
             break;
         case inc_s0:
-            if((~PINA & 0x01) && (~PINA & 0x02)) { //Reset the count
+            if((PINA & 0x01) && (PINA & 0x02)) { //Reset the count
                 inc_State = inc_Reset;
             }
-            else if(~PINA & 0x01) { //Go up 1
+            else if(PINA & 0x01) { //Go up 1
                 inc_State = inc_Up;
                 count = 10;
             }
-            else if(~PINA & 0x02) { //Go down 1
+            else if(PINA & 0x02) { //Go down 1
                 inc_State = inc_Down;
                 count = 10;
             }
             break;
         case inc_Up:
-            if((~PINA & 0x01) && (~PINA & 0x02)) { //Reset if A1 pushed
+            if((PINA & 0x01) && (PINA & 0x02)) { //Reset if A1 pushed
                 inc_State = inc_Reset;
             }
-            else if(!(~PINA & 0x01)) { //Continue until release
+            else if(!(PINA & 0x01)) { //Continue until release
                 inc_State = inc_s0;
             }
-            else if(~PINA & 0x02) { //Go straight to down 1
+            else if(PINA & 0x02) { //Go straight to down 1
                 inc_State = inc_Down;
                 count = 10;
             }
             break;
         case inc_Down:
-            if((~PINA & 0x01) && (~PINA & 0x02)) { //Reset if A0 pushed
+            if((PINA & 0x01) && (PINA & 0x02)) { //Reset if A0 pushed
                 inc_State = inc_Reset;
             }
-            else if(~PINA & 0x01) { //Straight to up 1
+            else if(PINA & 0x01) { //Straight to up 1
                 inc_State = inc_Up;
                 count = 10;
             }
-            else if(!(~PINA & 0x02)) { // Continue until release
+            else if(!(PINA & 0x02)) { // Continue until release
                 inc_State = inc_s0;
             }
             break;
         case inc_Reset:
-            if(!(~PINA & 0x01) && !(~PINA & 0x02)) {
+            if(!(PINA & 0x01) && !(PINA & 0x02)) {
                 inc_State = inc_s0; //Go back to start
             }
             break;
