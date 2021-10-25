@@ -109,11 +109,11 @@ void light_Show() {
             }
             break;
         default:
-            li_State = inc_SMStart;
+            li_State = li_SMStart;
             break;
     }
     
-    switch(inc_State) {
+    switch(li_State) {
         case li_SMStart:
             PORTB = 0x00;
             break;
@@ -142,7 +142,6 @@ int main(void) {
     DDRB = 0xFF; PORTB = 0x00;
     TimerSet(300);
     TimerOn();
-    unsigned char tmpB = 0x00;
     li_State = li_SMStart;
     PORTB = 0x00;
     while(1) {

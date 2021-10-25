@@ -54,7 +54,6 @@ int main(void) {
     DDRB = 0xFF; PORTB = 0x00;
     TimerSet(1000);
     TimerOn();
-    unsigned char tmpB = 0x00;
     while(1) {
         PORTB = 0x00;
         while(!TimerFlag);

@@ -93,11 +93,11 @@ void light_Show() {
         case li_Victory:
             break;
         default:
-            li_State = inc_SMStart;
+            li_State = li_SMStart;
             break;
     }
     
-    switch(inc_State) {
+    switch(li_State) {
         case li_SMStart:
             PORTB = 0x00;
             checkV = 5;
@@ -142,7 +142,7 @@ void light_Show() {
             LCD_WriteData(checkV + '0');
             PORTB = 0x01;
             break;
-        case li_Hold:
+        case li_Victory:
             LCD_DisplayString(1, "Victory!");
             break;
         default:
@@ -160,7 +160,6 @@ int main(void) {
     TimerSet(300);
     TimerOn();
     LCD_init();
-    unsigned char tmpB = 0x00;
     li_State = li_SMStart;
     PORTB = 0x00;
     while(1) {
