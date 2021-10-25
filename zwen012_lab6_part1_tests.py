@@ -1,0 +1,1 @@
+No tests because there are no inputs.
