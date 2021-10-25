@@ -91,6 +91,9 @@ void light_Show() {
             }
             break;
         case li_Victory:
+            if(PINA & 0x01) {
+                li_State = li_SMStart;
+            }
             break;
         default:
             li_State = li_SMStart;
