@@ -115,24 +115,24 @@ void light_Show() {
     
     switch(li_State) {
         case li_SMStart:
-            PORTB = 0x00;
+            PORTB = 0x01;
             break;
         case li_s0:
-            PORTB = 0x00;
+            PORTB = 0x01;
             break;
         case li_s1Up:
-            PORTB = 0x01;
-            break;
-        case li_s2:
             PORTB = 0x02;
             break;
+        case li_s2:
+            PORTB = 0x04;
+            break;
         case li_s1Down:
-            PORTB = 0x01;
+            PORTB = 0x02;
             break;
         case li_Hold:
             break;
         default:
-            PORTB = 0x00;
+            PORTB = 0x01;
             break;
     }
 }
@@ -143,7 +143,7 @@ int main(void) {
     TimerSet(300);
     TimerOn();
     li_State = li_SMStart;
-    PORTB = 0x00;
+    PORTB = 0x01;
     while(1) {
         light_Show();
         while(!TimerFlag);

@@ -55,15 +55,15 @@ int main(void) {
     TimerSet(1000);
     TimerOn();
     while(1) {
-        PORTB = 0x00;
-        while(!TimerFlag);
-        TimerFlag = 0;
-
         PORTB = 0x01;
         while(!TimerFlag);
         TimerFlag = 0;
 
         PORTB = 0x02;
+        while(!TimerFlag);
+        TimerFlag = 0;
+
+        PORTB = 0x04;
         while(!TimerFlag);
         TimerFlag = 0;
     }

@@ -99,7 +99,7 @@ void light_Show() {
     
     switch(li_State) {
         case li_SMStart:
-            PORTB = 0x00;
+            PORTB = 0x01;
             checkV = 5;
             break;
         case li_s0:
@@ -110,7 +110,7 @@ void light_Show() {
             LCD_ClearScreen();
             LCD_Cursor(1);
             LCD_WriteData(checkV + '0');
-            PORTB = 0x00;
+            PORTB = 0x01;
             break;
         case li_s1Up:
             if(PINA & 0x01) {
@@ -120,7 +120,7 @@ void light_Show() {
             LCD_ClearScreen();
             LCD_Cursor(1);
             LCD_WriteData(checkV + '0');
-            PORTB = 0x01;
+            PORTB = 0x02;
             break;
         case li_s2:
             if(PINA & 0x01) {
@@ -130,7 +130,7 @@ void light_Show() {
             LCD_ClearScreen();
             LCD_Cursor(1);
             LCD_WriteData(checkV + '0');
-            PORTB = 0x02;
+            PORTB = 0x04;
             break;
         case li_s1Down:
             if(PINA & 0x01) {
@@ -140,13 +140,13 @@ void light_Show() {
             LCD_ClearScreen();
             LCD_Cursor(1);
             LCD_WriteData(checkV + '0');
-            PORTB = 0x01;
+            PORTB = 0x02;
             break;
         case li_Victory:
             LCD_DisplayString(1, "Victory!");
             break;
         default:
-            PORTB = 0x00;
+            PORTB = 0x01;
             checkV = 5;
             break;
     }
@@ -161,7 +161,7 @@ int main(void) {
     TimerOn();
     LCD_init();
     li_State = li_SMStart;
-    PORTB = 0x00;
+    PORTB = 0x01;
     while(1) {
         light_Show();
         while(!TimerFlag);
