@@ -106,7 +106,6 @@ void light_Show() {
             if(PINA & 0x01) {
                 checkV += 1;
             }
-            PORTC = checkV;
             LCD_ClearScreen();
             LCD_Cursor(1);
             LCD_WriteData(checkV + '0');
@@ -116,7 +115,6 @@ void light_Show() {
             if(PINA & 0x01) {
                 checkV -= 1;
             }
-            PORTC = checkV;
             LCD_ClearScreen();
             LCD_Cursor(1);
             LCD_WriteData(checkV + '0');
@@ -126,7 +124,6 @@ void light_Show() {
             if(PINA & 0x01) {
                 checkV += 1;
             }
-            PORTC = checkV;
             LCD_ClearScreen();
             LCD_Cursor(1);
             LCD_WriteData(checkV + '0');
@@ -136,7 +133,6 @@ void light_Show() {
             if(PINA & 0x01) {
                 checkV -= 1;
             }
-            PORTC = checkV;
             LCD_ClearScreen();
             LCD_Cursor(1);
             LCD_WriteData(checkV + '0');
