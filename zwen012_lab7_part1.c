@@ -108,7 +108,7 @@ void increment_Button() {
     
     switch(inc_State) {
         case inc_SMStart:
-            PORTC = 0x07;
+            tmpC = 0;
             break;
         case inc_s0:
             break;
@@ -120,7 +120,6 @@ void increment_Button() {
                 tmpC += 1;
                 count = 0;
             }
-            PORTC = tmpC;
             break;
         case inc_Down:
             if(PINA & 0x02 && count < 10) {
@@ -130,14 +129,11 @@ void increment_Button() {
                 tmpC -= 1;
                 count = 0;
             }
-            PORTC = tmpC;
             break;
         case inc_Reset:
-            tmpC = 0;
-            PORTC = tmpC;
             break;
         default:
-            PORTC = 0x07;
+            tmpC = 0;
             break;
     }
 }
@@ -149,6 +145,7 @@ int main(void) {
     TimerSet(100);
     TimerOn();
     LCD_init();
+    LCD_ClearScreen();
     inc_State = inc_SMStart;
     while(1) {
         increment_Button();
