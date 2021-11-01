@@ -44,8 +44,11 @@ int main(void) {
     PWM_on();
     unsigned char noteNum = 0;
     unsigned char offOn = 1;
+    unsigned char button1 = 1;
+    unsigned char button2 = 1;
+    unsigned char button3 = 1;
     while(1) {
-        if(PINA & 0x01) {
+        if(PINA & 0x01 && button1) {
             if(offOn == 0) {
                 set_PWM(0);
                 offOn = 1;
@@ -53,16 +56,24 @@ int main(void) {
             else {
                 offOn = 0;
             }
+            button1 = 0;
         }
-        else if(PINA & 0x02) {
+        else if(PINA & 0x02 && button2) {
             if(noteNum > 0) {
                 noteNum -= 1;
             }
+            button2 = 0;
         }
-        else if(PINA & 0x04) {
-            if(notNum < 7) {
+        else if(PINA & 0x04 && button3) {
+            if(noteNum < 7) {
                 noteNum += 1;
             }
+            button3 = 0;
+        }
+        else {
+            button1 = 1;
+            button2 = 1;
+            button3 = 1;
         }
 
         if(offOn == 0) {
