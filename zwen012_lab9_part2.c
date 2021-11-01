@@ -46,7 +46,7 @@ int main(void) {
     unsigned char offOn = 1;
     while(1) {
         if(PINA & 0x01) {
-            if(offOn) {
+            if(offOn == 0) {
                 set_PWM(0);
                 offOn = 1;
             }
@@ -65,7 +65,7 @@ int main(void) {
             }
         }
 
-        if(!offOn) {
+        if(offOn == 0) {
             if(noteNum == 0) {
                 set_PWM(261.63);
             }
