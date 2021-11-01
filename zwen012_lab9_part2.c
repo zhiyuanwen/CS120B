@@ -43,15 +43,15 @@ int main(void) {
     DDRB = 0xFF; PORTB = 0x00;
     PWM_on();
     unsigned char noteNum = 0;
-    unsigned bool offOn = true;
+    unsigned char offOn = 1;
     while(1) {
         if(PINA & 0x01) {
             if(offOn) {
                 set_PWM(0);
-                offOn = true;
+                offOn = 1;
             }
             else {
-                offOn = false;
+                offOn = 0;
             }
         }
         else if(PINA & 0x02) {
