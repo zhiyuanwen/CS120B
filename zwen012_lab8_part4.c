@@ -29,22 +29,22 @@ int main(void) {
     while(1) {
         x = ADC;
         if(x >= (ADC_max * 7 / 8)) {
-            PORTB = 0x07;
+            PORTB = 0x7F;
         }
         else if(x >= (ADC_max * 6 / 8)) {
-            PORTB = 0x06;
+            PORTB = 0x3F;
         }
         else if(x >= (ADC_max * 5 / 8)) {
-            PORTB = 0x05;
+            PORTB = 0x1F;
         }
         else if(x >= (ADC_max * 4 / 8)) {
-            PORTB = 0x04;
+            PORTB = 0x0F;
         }
         else if(x >= (ADC_max * 3 / 8)) {
-            PORTB = 0x03;
+            PORTB = 0x07;
         }
         else if(x >= (ADC_max * 2 / 8)) {
-            PORTB = 0x02;
+            PORTB = 0x03;
         }
         else if(x >= ADC_max / 8) {
             PORTB = 0x01;
