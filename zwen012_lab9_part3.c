@@ -10,9 +10,45 @@
  */
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
+
+volatile unsigned char TimerFlag = 0;
+
+unsigned long _avr_timer_M = 1;
+unsigned long _avr_timer_cntcurr = 0;
+
+void TimerOn() {
+    TCCR1B = 0x0B;
+    OCR1A = 125;
+    TIMSK1 = 0x02;
+    TCNT1 = 0;
+    _avr_timer_cntcurr = _avr_timer_M;
+    SREG |= 0x80;
+}
+
+void TimerOff() {
+    TCCR1B = 0x00;
+}
+
+void TimerISR() {
+    TimerFlag = 1;
+}
+
+ISR(TIMER1_COMPA_vect) {
+    _avr_timer_cntcurr--;
+    if(_avr_timer_cntcurr == 0) {
+        TimerISR();
+        _avr_timer_cntcurr = _avr_timer_M;
+    }
+}
+
+void TimerSet(unsigned long M) {
+    _avr_timer_M = M;
+    _avr_timer_cntcurr = _avr_timer_M;
+}
 
 void set_PWM(double frequency) {
     static double current_frequency;
@@ -45,6 +81,8 @@ int main(void) {
     unsigned char playT = 0;
     unsigned char i = 0;
     PWM_on();
+    TimerSet(100);
+    TimerOn();
     double notes[] = {261.63, 329.63, 392.00, 329.63, 261.63};
     while(1) {
         if((PINA & 0x01 && button) || playT) {
@@ -62,6 +100,8 @@ int main(void) {
         if(!(PINA & 0x01)) {
             button = 1;
         }
+        while(!TimerFlag);
+        TimerFlag = 0;
     }
     
     PWM_off();
