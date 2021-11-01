@@ -113,8 +113,8 @@ void increment_Button() {
         case inc_s0:
             break;
         case inc_Up:
-            if(notNum < 7) {
-                tmpB += 1;
+            if(noteNum < 7) {
+                noteNum += 1;
             }
             break;
         case inc_Down:
