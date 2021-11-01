@@ -38,17 +38,55 @@ void PWM_off() {
     TCCR3B = 0x00;
 }
 
-int main(void) {
-    DDRA = 0x00; PORTA = 0xFF;
-    DDRB = 0xFF; PORTB = 0x00;
-    PWM_on();
-    unsigned char noteNum = 0;
-    unsigned char offOn = 1;
-    unsigned char button1 = 1;
-    unsigned char button2 = 1;
-    unsigned char button3 = 1;
-    while(1) {
-        if(PINA & 0x01 && button1) {
+enum inc_States { inc_SMStart, inc_s0, inc_Up, inc_Down, inc_Reset } inc_State;
+unsigned char noteNum = 7;
+unsigned char offOn = 1;
+void increment_Button() {
+    switch(inc_State) {
+        case inc_SMStart:
+            inc_State = inc_s0; //Go to state0
+            break;
+        case inc_s0:
+            if(PINA & 0x04) { //Sound off/on
+                inc_State = inc_Reset;
+            }
+            else if(PINA & 0x01) { //Up 1 note
+                inc_State = inc_Up;
+            }
+            else if(PINA & 0x02) { //Down 1 note
+                inc_State = inc_Down;
+            }
+            break;
+        case inc_Up:
+            inc_State = inc_s0;
+            break;
+        case inc_Down:
+            inc_State = inc_s0;
+            break;
+        case inc_Reset:
+            inc_State = inc_s0;
+            break;
+        default:
+            inc_State = inc_SMStart;
+            break;
+    }
+    
+    switch(inc_State) {
+        case inc_SMStart:
+            break;
+        case inc_s0:
+            break;
+        case inc_Up:
+            if(notNum < 7) {
+                tmpB += 1;
+            }
+            break;
+        case inc_Down:
+            if(noteNum > 0) {
+                noteNum -= 1;
+            }
+            break;
+        case inc_Reset:
             if(offOn == 0) {
                 set_PWM(0);
                 offOn = 1;
@@ -56,26 +94,19 @@ int main(void) {
             else {
                 offOn = 0;
             }
-            button1 = 0;
-        }
-        else if(PINA & 0x02 && button2) {
-            if(noteNum > 0) {
-                noteNum -= 1;
-            }
-            button2 = 0;
-        }
-        else if(PINA & 0x04 && button3) {
-            if(noteNum < 7) {
-                noteNum += 1;
-            }
-            button3 = 0;
-        }
-        else {
-            button1 = 1;
-            button2 = 1;
-            button3 = 1;
-        }
+            break;
+        default:
+            PORTB = 0x07;
+            break;
+    }
+}
 
+int main(void) {
+    DDRA = 0x00; PORTA = 0xFF;
+    DDRB = 0xFF; PORTB = 0x00;
+    PWM_on();
+    while(1) {
+        increment_Button();
         if(offOn == 0) {
             if(noteNum == 0) {
                 set_PWM(261.63);
