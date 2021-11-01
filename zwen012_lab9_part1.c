@@ -44,22 +44,19 @@ int main(void) {
     PWM_on();
     while(1) {
         if((PINA & 0x01) && !(PINA & 0x02) && !(PINA & 0x04)) {
-            PWM_on();
             set_PWM(261.33);
         }
         else if(!(PINA & 0x01) && (PINA & 0x02) && !(PINA & 0x04)) {
-            PWM_on();
             set_PWM(293.66);
         }
         else if(!(PINA & 0x01) && !(PINA & 0x02) && (PINA & 0x04)) {
-            PWM_on();
             set_PWM(329.63);
         }
         else {
             set_PWM(0);
-            PWM_off();
         }
     }
     
+    PWM_off();
     return 0;
 }
