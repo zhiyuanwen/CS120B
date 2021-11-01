@@ -59,7 +59,6 @@ int main(void) {
             PORTB = 0x0F;
         }
     }
-
-    PWM_off();
+    
     return 0;
 }
