@@ -30,7 +30,7 @@ void set_PWM(double frequency) {
 void PWM_on() {
     TCCR3A = (1 << COM3A0);
     TCCR3B = (1 << WGM32) | (1 << CS31) | (1 << CS30);
-    setPWM(0);
+    set_PWM(0);
 }
 
 void PWM_off() {
@@ -43,20 +43,20 @@ int main(void) {
     DDRB = 0xFF; PORTB = 0x00;
     PWM_on();
     while(1) {
-        if((PINA & 0x00) && !(PINA & 0x01) && !(PINA & 0x02)) {
+        if((PINA & 0x01) && !(PINA & 0x02) && !(PINA & 0x04)) {
             set_PWM(261.33);
             PORTB = 0x40;
         }
-        else if(!(PINA & 0x00) && (PINA & 0x01) && !(PINA & 0x02)) {
+        else if(!(PINA & 0x01) && (PINA & 0x02) && !(PINA & 0x04)) {
             set_PWM(293.66);
             PORTB = 0x40;
         }
-        else if(!(PINA & 0x00) && !(PINA & 0x01) && (PINA & 0x02)) {
+        else if(!(PINA & 0x01) && !(PINA & 0x02) && (PINA & 0x04)) {
             set_PWM(329.63);
             PORTB = 0x40;
         }
         else {
-            PORTB = 0;
+            PORTB = 0x0F;
         }
     }
 
