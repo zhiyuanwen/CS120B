@@ -145,12 +145,12 @@ void BlinkingLEDSM() {
 enum sp_States { sp_s0, sp_s1 } sp_State;
 
 unsigned char speakerSound = 0x00;
-unsigned short count3 = 0;
+unsigned short count3 = 3;
 
 void SpeakerSM() {
     switch(sp_State) {
         case sp_s0:
-            if(PINA & 0x04) {
+            if(PINA & 0x04 && count3 > 2) {
                 sp_State = sp_s1;
                 count3 = 0;
             }
@@ -158,6 +158,7 @@ void SpeakerSM() {
         case sp_s1:
             if(count3 > 2) {
                 sp_State = sp_s0;
+                count3 = 0;
             }
             break;
         default:
@@ -168,6 +169,7 @@ void SpeakerSM() {
     switch(inc_State) {
         case bli_s1:
             speakerSound = 0x00;
+            count3++;
             break;
         case bli_s0:
             speakerSound = 0x10;
@@ -175,6 +177,7 @@ void SpeakerSM() {
             break;
         default:
             speakerSound = 0x00;
+            count3 = 3;
             break;
     }
 }
