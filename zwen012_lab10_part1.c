@@ -17,6 +17,7 @@
 enum led_States { led_s0, led_ s1, led_s2 } led_State;
 
 unsigned char threeLEDs = 0x01;
+
 void ThreeLEDsSM() {
     switch(led_State) {
         case led_s0:
@@ -52,6 +53,7 @@ void ThreeLEDsSM() {
 enum bli_States { bli_s1, bli_s0 } bli_State;
 
 unsigned char blinkingLED = 0x08;
+
 void BlinkingLEDSM() {
     switch(bli_State) {
         case bli_s1:
@@ -85,7 +87,6 @@ void CombineLEDsSM() {
 int main(void) {
     DDRA = 0x00; PORTA = 0xFF;
     DDRB = 0xFF; PORTB = 0x00;
-    unsigned char tmpA = 0x00;
     while(1) {
         ThreeLEDsSM();
         BlinkingLEDSM();
