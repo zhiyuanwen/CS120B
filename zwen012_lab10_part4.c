@@ -151,7 +151,7 @@ unsigned short freqRate = 2;
 void SpeakerSM() {
     switch(sp_State) {
         case sp_s0:
-            if(PINA & 0x04 && count3 > freqRate) {
+            if(PINA & 0x04 && count3 > 2) {
                 sp_State = sp_s1;
                 count3 = 0;
             }
@@ -196,7 +196,7 @@ int main(void) {
         ThreeLEDsSM();
         BlinkingLEDSM();
         SpeakerSM();
-        if(PINA & 0x01) {
+        if(PINA & 0x01 && freqRate < 8) {
             freqRate += 1;
         }
         else if(PINA & 0x02 && freqRate > 1) {
