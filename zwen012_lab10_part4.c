@@ -164,6 +164,7 @@ void SpeakerSM() {
             break;
         default:
             sp_State = sp_s0;
+            count3 = freqRate + 1;
             break;
     }
     
@@ -178,7 +179,7 @@ void SpeakerSM() {
             break;
         default:
             speakerSound = 0x00;
-            count3 = 3;
+            count3++;
             break;
     }
 }
