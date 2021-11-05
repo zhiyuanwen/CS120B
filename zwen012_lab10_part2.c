@@ -50,7 +50,7 @@ void TimerSet(unsigned long M) {
     _avr_timer_cntcurr = _avr_timer_M;
 }
 
-enum led_States { led_s0, led_ s1, led_s2 } led_State;
+enum led_States { led_s0, led_s1, led_s2 } led_State;
 
 unsigned char threeLEDs = 0x01;
 unsigned char count = 0;
@@ -81,7 +81,7 @@ void ThreeLEDsSM() {
             break;
     }
     
-    switch(inc_State) {
+    switch(led_State) {
         case led_s0:
             threeLEDs = 0x01;
             count++;
@@ -126,7 +126,7 @@ void BlinkingLEDSM() {
             break;
     }
     
-    switch(inc_State) {
+    switch(bli_State) {
         case bli_s1:
             blinkingLED = 0x08;
             count2++;
