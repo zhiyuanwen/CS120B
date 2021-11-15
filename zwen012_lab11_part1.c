@@ -18,58 +18,57 @@
 #include "simAVRHeader.h"
 #endif
 
-enum keypad_States { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, *, #, \0};
 int toggleKeypadSMState(int state) {
     switch(state) {
-        case 0:
+        case '0':
             PORTB = 0x00;
             break;
-        case 1:
+        case '1':
             PORTB = 0x01;
             break;
-        case 2:
+        case '2':
             PORTB = 0x02;
             break;
-        case 3:
+        case '3':
             PORTB = 0x03;
             break;
-        case 4:
+        case '4':
             PORTB = 0x04;
             break;
-        case 5:
+        case '5':
             PORTB = 0x05;
             break;
-        case 6:
+        case '6':
             PORTB = 0x06;
             break;
-        case 7:
+        case '7':
             PORTB = 0x07;
             break;
-        case 8:
+        case '8':
             PORTB = 0x08;
             break;
-        case 9:
+        case '9':
             PORTB = 0x09;
             break;
-        case A:
+        case 'A':
             PORTB = 0x0A;
             break;
-        case B:
+        case 'B':
             PORTB = 0x0B;
             break;
-        case C:
+        case 'C':
             PORTB = 0x0C;
             break;
-        case D:
+        case 'D':
             PORTB = 0x0D;
             break;
-        case *:
+        case '*':
             PORTB = 0x0E;
             break;
-        case #:
+        case '#':
             PORTB = 0x0F;
             break;
-        case \0:
+        case '\0':
             PORTB = 0x1F;
             break;
         default:
@@ -83,8 +82,8 @@ int main(void) {
     DDRA = 0x00; PORTA = 0xFF;
     DDRB = 0xFF; PORTB = 0x00;
     
-    static _task task1;
-    _task *tasks[] = { &task1 };
+    static task task1;
+    task *tasks[] = { &task1 };
     const unsigned short numTasks = sizeof(tasks) / sizeof(task*);
 
     task1.state = GetKeypadKey();
