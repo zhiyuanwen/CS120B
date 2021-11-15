@@ -98,6 +98,9 @@ int displaySMTick(int state) {
             break;
     }
     PORTB = output;
+    LCD_ClearScreen();
+    LCD_Cursor(1);
+    LCD_WriteData(output);
     return state;
 }
 
@@ -126,6 +129,7 @@ int main(void) {
     }
     TimerSet(GCD);
     TimerOn();
+    LCD_init();
     while(1) {
         for(i = 0; i < numTasks; ++i) {
             if(tasks[i] -> elapsedTime == tasks[i] -> period) {
