@@ -23,57 +23,57 @@ unsigned char displayL = 0x00;
 int toggleKeypadSMState(int state) {
     switch(state) {
         case '0':
-            PORTB = 0x00;
+            displayL = 0x00;
             break;
         case '1':
-            PORTB = 0x01;
+            displayL = 0x01;
             break;
         case '2':
-            PORTB = 0x02;
+            displayL = 0x02;
             break;
         case '3':
-            PORTB = 0x03;
+            displayL = 0x03;
             break;
         case '4':
-            PORTB = 0x04;
+            displayL = 0x04;
             break;
         case '5':
-            PORTB = 0x05;
+            displayL = 0x05;
             break;
         case '6':
-            PORTB = 0x06;
+            displayL = 0x06;
             break;
         case '7':
-            PORTB = 0x07;
+            displayL = 0x07;
             break;
         case '8':
-            PORTB = 0x08;
+            displayL = 0x08;
             break;
         case '9':
-            PORTB = 0x09;
+            displayL = 0x09;
             break;
         case 'A':
-            PORTB = 0x0A;
+            displayL = 0x0A;
             break;
         case 'B':
-            PORTB = 0x0B;
+            displayL = 0x0B;
             break;
         case 'C':
-            PORTB = 0x0C;
+            displayL = 0x0C;
             break;
         case 'D':
-            PORTB = 0x0D;
+            displayL = 0x0D;
             break;
         case '*':
-            PORTB = 0x0E;
+            displayL = 0x0E;
             break;
         case '#':
-            PORTB = 0x0F;
+            displayL = 0x0F;
             break;
         case '\0':
             break;
         default:
-            PORTB = 0x1B;
+            displayL = 0x1B;
             break;
     }
     return state;
@@ -97,7 +97,6 @@ int displaySMTick(int state) {
         default:
             break;
     }
-    PORTB = output;
     LCD_ClearScreen();
     LCD_Cursor(1);
     LCD_WriteData(output);
@@ -107,6 +106,8 @@ int displaySMTick(int state) {
 int main(void) {
     DDRA = 0x00; PORTA = 0xFF;
     DDRB = 0xFF; PORTB = 0x00;
+    DDRC = 0x00; PORTC = 0xFF;
+    DDRD = 0xFF; PORD = 0x00;
     
     static task task1, task2;
     task *tasks[] = { &task1, &task2 };
