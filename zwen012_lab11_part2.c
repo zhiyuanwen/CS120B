@@ -43,15 +43,15 @@ int displaySMText(int state) {
     switch(state) {
         case display_p1:
             LCD_ClearScreen();
-            LCD_DisplayString("CS120B is Legend");
+            LCD_DisplayString(0, "CS120B is Legend");
             break;
         case display_p2:
             LCD_ClearScreen();
-            LCD_DisplayString("wait for it...");
+            LCD_DisplayString(0, "wait for it...");
             break;
         case display_p3:
             LCD_ClearScreen();
-            LCD_DisplayString("DARY!");
+            LCD_DisplayString(0, "DARY!");
             break;
         default:
             break;
@@ -62,9 +62,10 @@ int displaySMText(int state) {
 int main(void) {
     DDRA = 0x00; PORTA = 0xFF;
     DDRB = 0xFF; PORTB = 0x00;
+    DDRC = 0x00; PORTC = 0xFF;
     
-    static _task task1;
-    _task *tasks[] = { &task1 };
+    static task task1;
+    task *tasks[] = { &task1 };
     const unsigned short numTasks = sizeof(tasks) / sizeof(task*);
 
     task1.state = display_display;
@@ -79,6 +80,7 @@ int main(void) {
     }
     TimerSet(GCD);
     TimerOn();
+    LCD_init();
     while(1) {
         for(i = 0; i < numTasks; ++i) {
             if(tasks[i] -> elapsedTime == tasks[i] -> period) {
