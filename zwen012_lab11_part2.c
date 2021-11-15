@@ -38,7 +38,7 @@ int displaySMText(int state) {
                 str2 = str2 + str1[j];
             }
             LCD_DisplayString(1, str2);
-            i++;
+            i = (i + 1) % 68;
             break;
         default:
             break;
