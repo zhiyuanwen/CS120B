@@ -12,7 +12,6 @@
 #include <avr/io.h>
 #include "timer.h"
 #include "io.h"
-#include "keypad.h"
 #include "scheduler.h"
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
@@ -36,16 +35,13 @@ int displaySMText(int state) {
     }
     switch(state) {
         case display_p1:
-            LCD_ClearScreen();
-            LCD_DisplayString(0, "CS120B is Legend");
+            LCD_DisplayString(1, "CS120B is Legend");
             break;
         case display_p2:
-            LCD_ClearScreen();
-            LCD_DisplayString(0, "wait for it...");
+            LCD_DisplayString(1, "wait for it...");
             break;
         case display_p3:
-            LCD_ClearScreen();
-            LCD_DisplayString(0, "DARY!");
+            LCD_DisplayString(1, "DARY!");
             break;
         default:
             break;
@@ -62,13 +58,13 @@ int main(void) {
     task *tasks[] = { &task1 };
     const unsigned short numTasks = sizeof(tasks) / sizeof(task*);
 
-    task1.state = display_p3;
+    task1.state = -1;
     task1.period = 5000;
     task1.elapsedTime = task1.period;
     task1.TickFct = &displaySMText;
 
     unsigned short i;
-    unsigned long GCD =  tasks[0] -> period;
+    unsigned long GCD = tasks[0] -> period;
     for(i = 1; i < numTasks; i++) {
         GCD = findGCD(GCD, tasks[i] -> period);
     }
