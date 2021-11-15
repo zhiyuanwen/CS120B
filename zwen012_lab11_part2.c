@@ -21,30 +21,37 @@
 char str1[] = "CS120B is Legend... wait for it DARY!";
 unsigned char i = 0;
 unsigned str2[] = "";
+unsigned char flag = 0;
 
-enum display_States { display_display };
-int displaySMTick(int state) {
+enum display_Text { display_p1, display_p2, display_p3 };
+int displaySMText(int state) {
     unsigned char output;
     switch(state) {
-        case display_display:
-            state = display_display;
+        case display_p1:
+            state = display_p2;
+            break;
+        case display_p2:
+            state = display_p3;
+            break;
+        case display_p3:
+            state = display_p1;
             break;
         default:
-            state = display_display;
+            state = display_p1;
             break;
     }
     switch(state) {
-        case display_display:
+        case display_p1:
             LCD_ClearScreen();
-            if(i >= sizeof(str1)) {
-                str2 += str1[sizeof(str1) - i];
-                i--;
-            }
-            else {
-                str2 += str1[i];
-                i++;
-            }
-            LCD_DisplayString(str2);
+            LCD_DisplayString("CS120B is Legend");
+            break;
+        case display_p2:
+            LCD_ClearScreen();
+            LCD_DisplayString("wait for it...");
+            break;
+        case display_p3:
+            LCD_ClearScreen();
+            LCD_DisplayString("DARY!");
             break;
         default:
             break;
@@ -61,9 +68,9 @@ int main(void) {
     const unsigned short numTasks = sizeof(tasks) / sizeof(task*);
 
     task1.state = display_display;
-    task1.period = 100;
+    task1.period = 5000;
     task1.elapsedTime = task1.period;
-    task1.TickFct = &displaySMTick;
+    task1.TickFct = &displaySMText;
 
     unsigned short i;
     unsigned long GCD =  tasks[0] -> period;
