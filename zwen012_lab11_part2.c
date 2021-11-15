@@ -18,7 +18,7 @@
 #endif
 
 const char* str1 = "                CS120B is Legend...wait for it DARY!                ";
-const char* str2 = "";
+char* str2 = "";
 unsigned char i = 0;
 
 enum display_Text { display_p1 };
@@ -38,6 +38,7 @@ int displaySMText(int state) {
                 str2 = str2 + str1[j];
             }
             LCD_DisplayString(1, str2);
+            i++;
             break;
         default:
             break;
