@@ -18,11 +18,12 @@
 #include "simAVRHeader.h"
 #endif
 
-const unsigned char* str1 = "CS120B is Legend";
-const unsigned char* str2 = "wait for it...";
-const unsigned char* str3 = "DARY!";
+const char* str1 = "CS120B is Legend";
+const char* str2 = "wait for it...";
+const char* str3 = "DARY!";
 
 enum display_Text { display_p1, display_p2, display_p3 };
+int displaySMText(int state) {
     switch(state) {
         case display_p1:
             state = display_p2;
@@ -65,7 +66,7 @@ int main(void) {
     task *tasks[] = { &task1 };
     const unsigned short numTasks = sizeof(tasks) / sizeof(task*);
 
-    task1.state = display_p3;
+    task1.state = display_display;
     task1.period = 5000;
     task1.elapsedTime = task1.period;
     task1.TickFct = &displaySMText;
